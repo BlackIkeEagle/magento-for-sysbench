@@ -23,6 +23,24 @@ host('combell')
     ->user('ikedevbe')
     ->set('deploy_path', '/data/sites/web/ikedevbe/magento-perf/{{application}}');
 
+host('test')
+    ->hostname('176.62.166.239')
+    ->forwardAgent(false)
+    ->user('testbe')
+    ->set('deploy_path', '/data/sites/web/testbe/magento-perf/{{application}}');
+
+host('testidevolder')
+    ->hostname('com-tlinssh001.srv.combell-ops.net')
+    ->forwardAgent(false)
+    ->user('idevolder')
+    ->set('deploy_path', '/home/combell/idevolder/magento-perf/{{application}}');
+
+host('testidevoldernfs')
+    ->hostname('com-tlinssh001.srv.combell-ops.net')
+    ->forwardAgent(false)
+    ->user('idevolder')
+    ->set('deploy_path', '/data/com-tlinweb001/idevolder-deploytest/magento-perf/{{application}}');
+
 task('composer', 'composer install --no-dev');
 
 task('deploy', [
@@ -38,7 +56,7 @@ task('deploy', [
     'deploy:writable',
     'deploy:symlink',
     'deploy:unlock',
-    'cleanup',
+    //'cleanup',
 ])->desc('Deploy your project');
 
 // Display success message on completion
